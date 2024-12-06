@@ -26,7 +26,7 @@
 
                                         <section class="action-btn">
                                             <section>
-                                                <button type="submit" id="edit-task"><a href="/edit/<%= task.id %>"><i class="fa fa-pen"></i></a> </button>
+                                                <button type="submit" id="edit-task" class="edit-task-btn" data-id="<%= task.id %>" data-name="<%= task.task_name %>" data-date="<%= task.date || '' %>"><i class="fa fa-pen"></i></button>
                                             </section>
                                             <form action="/delete/<%=task.id %>" method="post">
                                                 <button type="submit"><i class="fa fa-trash"></i> </button>
@@ -63,12 +63,12 @@
     <section class="modal-main-container">
         <section class="backdrop"></section>
 
-        <form action="<%= task ? '/edit/task.id' : '/' %>" method="post" class="modal">
+        <form action="<%= task ? `/edit/${task.id}` : `/` %>" method="post" class="modal">
 
                 <h3><%= task ? 'Edit Task' : 'Add New Task' %></h3>
                 
                 <% if(task) { %>
-                <input type="hidden" name="id" value="<%= task ? task.id : '' %>"> 
+                <input type="hidden" name="id" value="<%= task.id %>" id="hidden-task-id"> 
                 <% } %>
 
                 <input type="text" name="task" id="task" value="<%= task ? task.task_name : '' %>" placeholder="Add something here...." >

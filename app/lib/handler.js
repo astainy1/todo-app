@@ -47,7 +47,7 @@ exports.process = (req, res) => {
     // console.log('Day: ' + fullDay);
     // console.log('Year: ' + fullYear);
 
-    const {task} = req.body;
+    const {id, task} = req.body;
     const fullActualDate = `${months[fullMonth]} ${fullDay}, ${fullYear}`;
     
     // console.log('Task to be completed: ', task);
@@ -62,27 +62,31 @@ exports.process = (req, res) => {
     // const taskDB = database.db();
     // console.log(database)//Cheecking to see whether database is accessible
 
-    database.get(duplicateTask, [task, fullActualDate], (err, row) => {
-            if(err){
-                console.error('Error checking duplicate tasks', err.message);
-                return;
-            }
-            // Check for duplicates
-            if(row.count > 0){
-                console.log('Duplicate tasks found');
-                res.redirect(303, '/');
-            }else{
-
-            // Run the database by inserting values into various columns
-            database.run(newTask, [task, fullActualDate], (err) => {
-                if(err){
-                    console.error('Error inserting data into database: ', err.message);
-                    return res.status(500).render('500', {title: 'Server error', message: 'Database error. Please try again later.'});
-                 }
-                 res.redirect(303, '/');
+        if(id){
+            res.redirect(303, `/edit/${id}`);
+        }else{
+                database.get(duplicateTask, [task, fullActualDate], (err, row) => {
+                    if(err){
+                        console.error('Error checking duplicate tasks', err.message);
+                        return;
+                    }
+                    // Check for duplicates
+                    if(row.count > 0){
+                        console.log('Duplicate tasks found');
+                        res.redirect(303, '/');
+                    }else{
+        
+                    // Run the database by inserting values into various columns
+                    database.run(newTask, [task, fullActualDate], (err) => {
+                        if(err){
+                            console.error('Error inserting data into database: ', err.message);
+                            return res.status(500).render('500', {title: 'Server error', message: 'Database error. Please try again later.'});
+                        }
+                        res.redirect(303, '/');
+                    })
+                }
             })
         }
-    })
 }
 
 //Delete route
@@ -145,7 +149,7 @@ exports.update = (req, res) => {
     const fullMonth = date.getMonth();
     const fullYear = date.getFullYear();
 
-    const {id} = req.body;// retriving the id of the selected task
+    const {id} = req.params;// retriving the id of the selected task
     console.log(`Updated task id ${id}`);
 
     const {task} = req.body;
