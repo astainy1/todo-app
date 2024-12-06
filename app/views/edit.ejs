@@ -1,0 +1,27 @@
+<!-- Include partial file -->
+<%- include('./partial/header.ejs') %>
+<section class="main-container">
+
+    <section class="modal-main-container">
+        <section class="backdrop"></section>
+
+        <form action="/edit/:<%= task.id %>?" method="post" class="modal">
+
+                <h3><%= task ? 'Edit Task' : 'Add New Task' %></h3>
+                
+                <% if(task) { %>
+
+                <input type="hidden" name="id" value="<%= task? task.id : '' %>">
+                <% } %>
+
+                <input type="text" name="task" id="task" value="<%= task ? task.task_name : '' %>" placeholder="Add something here...." >
+
+                <input type="submit" id="submit-btn" value="<%= task ? 'Update' : 'Submit' %>">
+
+        </form>
+        
+    </section>
+</section>
+
+<!-- Include partial file for footer -->
+<%- include('./partial/footer.ejs') %>

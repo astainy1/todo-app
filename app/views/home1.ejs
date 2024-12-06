@@ -1,0 +1,84 @@
+<!-- Include partial file -->
+ <%- include('./partial/header.ejs') %>
+    <section class="main-container">
+        <section>
+
+            <header>
+                <section>
+                    <h3>To-Do List </h3>
+                    <p>Schedule your daily activities</p>
+                </section>
+                <button class="btn" id="add-task-btn">Add Task</button>
+            </header>
+    
+            <main class="task-main-container">
+                
+                <ul>
+                    <% if (Array.isArray(addedTask) && addedTask.length > 0) { %>
+                        <% for (let task of addedTask) { %>
+                            <li class="li">
+
+                                    <section class="task-container">
+
+                                        <span><%= task.task_name %></span>
+
+                                        <section class="action-container">
+
+                                            <section class="action-btn">
+                                                <section>
+                                                    <button type="submit" id="edit-task"><a href="/edit/:<%= task.id %>?"><i class="fa fa-pen"></i></a> </button>
+                                                </section>
+                                                <form action="/delete/<%=task.id %>" method="post">
+                                                    <button type="submit"><i class="fa fa-trash"></i> </button>
+                                                </form>
+                                                
+                                            </section>
+
+                                            <i class="date"><%= task.date || 'No Date' %></i>
+
+                                        </section>
+
+                                    </section>
+                                    <form action="" class="check-btn">
+                                        <button type="submit"><i class="fa fa-check"></i></button>
+                                    </form>
+                            </li>
+                        <% } %>
+                    <% } else { %>
+                       <p id="empty-task"><%= emptyMessage %></p>
+                    <% } %>
+                </ul>   
+                <div id="glow-box"></div>   
+            </main>
+    
+            <footer>
+                    <ul class="social-media">
+                        <li><a href="https://github.com/astainy1"><span class="fa fa-github"></span></a></li>
+                        <li><a href="https://www.facebook.com/christian.harris.58555"><span class="fa fa-facebook"></span></a></li>
+                        <li><a href="mailto:astainyharris1@gmail.com"><span class="fa fa-google"></span></a></li>
+                    </ul>
+            </footer>
+        </section>
+
+        <section class="modal-main-container">
+            <section class="backdrop"></section>
+
+            <form action="/" method="post" class="modal">
+
+                    <h3><%= task ? 'Edit Task' : 'Add New Task' %></h3>
+                    
+                    <% if(task) { %>
+                    <input type="hidden" name="id" value="<%= task? task.id : '' %>
+                    <% } %>
+
+                    <input type="text" name="task" id="task" value="<%= task ? task.task_name : '' %>" placeholder="Add something here...." >
+
+                    <input type="submit" id="submit-btn" value="<%= task ? 'Update' : 'Submit' %>">
+
+            </form>
+            
+        </section>
+    </section>
+
+<!-- Include partial file for footer -->
+<%- include('./partial/footer.ejs') %>
