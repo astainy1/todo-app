@@ -7,8 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const taskInput = document.getElementById('task');
     const submitTaskBtn = document.getElementById('submit-btn');
     const modalForm = document.querySelector('.modal');
-    const hiddenIdInput = document.getElementById('hidden-task-id'); // Ensure this is queried correctly
-
+    const hiddenIdInput = document.getElementById('hidden-task-id'); 
+    const completedTask = document.querySelectorAll('#checkTask button');
+    const taskContainer = document.querySelectorAll('main ul li');
+    const checkButtons = document.querySelectorAll('.check-btn button');
+    
     // Show the modal for adding a task
     addTaskBtn.addEventListener('click', () => {
         showModal.classList.add('add-modal');
@@ -17,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Clear the form for new task
         taskInput.value = '';
 
-        // Ensure hiddenIdInput is available and reset it
         if (hiddenIdInput) {
             hiddenIdInput.value = '';  // Clear the hidden ID for creating a new task
         } else {
@@ -41,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Populate the form with the task's details
             taskInput.value = taskName;
 
-            // Ensure hiddenIdInput is available before setting the value
             if (hiddenIdInput) {
                 hiddenIdInput.value = taskId;
             } else {
@@ -58,4 +59,36 @@ document.addEventListener('DOMContentLoaded', () => {
         showModal.classList.remove('add-modal');
         showBackdrop.classList.remove('add-backdrop');
     });
+
+    //Complete task button click
+    
+    taskContainer.forEach((taskList) => {
+
+                completedTask.forEach((taskChecked) => {
+                
+                console.log(`Task Checked button clicked`);
+
+                taskChecked.addEventListener('click', () => {
+                taskList.style.text = 'underline';
+                    })
+                    
+                })
+    })
+
+    console.log(taskContainer);
+    console.log(completedTask);
+
+   
+checkButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        const taskId = e.target.closest('button').getAttribute('data-id');
+        fetch(`/complete/${taskId}`, {
+            method: 'POST'
+        
+        }).then(() => {
+            location.reload(); // Reload the page after marking the task as complete
+        });
+    });
+});
+
 });

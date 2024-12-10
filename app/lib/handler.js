@@ -165,17 +165,6 @@ exports.update = (req, res) => {
     // const taskDB = database.db();
     // console.log(database)//Cheecking to see whether database is accessible
 
-    // database.get(duplicateTask, updateData, (err, row) => {
-            // if(err){
-            //     console.error('Error checking duplicate tasks', err.message);
-            //     return;
-            // }
-            // Check for duplicates
-            // if(row.count > 0){
-            //     console.log(`Tasks with id ${task.id} already exists`);
-            //     res.redirect(303, '/');
-            // }else{
-
             // Run the database by inserting values into selected column
             database.run(editedTask, updateData, (err) => {
                 if(err){
@@ -186,9 +175,28 @@ exports.update = (req, res) => {
                  console.log(`Tasks with id ${id} updated successfully`);
                  res.redirect(303, '/');
             })
-        // }
-    // })
+}
+
+// Retrive task id on click event and update task.
+
+//Route for deleting completed tasks after 10 seconds
+exports.completedTask = (req, res) => {
+    //Get task id from request params
+    const taskId = req.params.id;
+    console.log(taskId);
     
+    const updateCompletedTask = `UPDATE tasks set completed = 1 WHERE id = ?`;
+
+    database.run(updateCompletedTask, [taskId], (err) => {
+        if(err){
+            console.error('Error updating completed task: ', err.message);
+            res.status(500).render('500', { title: 'Server Error', message: 'Sorry for the inconvenience, but there seems to be an issue with our server.' });
+        } else {
+            console.log(`Task with id ${taskId} completed`);
+            res.redirect(303, '/');
+        }
+    })
+    //Delete completed task if 
 }
 
 // Custome 404 response middleware

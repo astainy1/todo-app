@@ -36,6 +36,8 @@ app.post('/delete/:id', handler.delete);
 //edit routes
 app.get('/edit/:id?', handler.edit);
 app.post('/edit/:id', handler.update);
+//Completed task 
+app.post('/complete/:id', handler.completedTask);
 
 
 //Custome 404 response

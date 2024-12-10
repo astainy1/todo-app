@@ -16,38 +16,31 @@
             <ul>
                 <% if (Array.isArray(addedTask) && addedTask.length > 0) { %>
                     <% for (let task of addedTask) { %>
-                        <li class="li">
-
-                                <section class="task-container">
-
-                                    <span><%= task.task_name %></span>
-
-                                    <section class="action-container">
-
-                                        <section class="action-btn">
-                                            <section>
-                                                <button type="submit" id="edit-task" class="edit-task-btn" data-id="<%= task.id %>" data-name="<%= task.task_name %>" data-date="<%= task.date || '' %>"><i class="fa fa-pen"></i></button>
-                                            </section>
-                                            <form action="/delete/<%=task.id %>" method="post">
-                                                <button type="submit"><i class="fa fa-trash"></i> </button>
-                                            </form>
-                                            
+                        <li class="li <%= task.completed ? 'completed' : '' %>">
+                            <section class="task-container">
+                                <span><%= task.task_name %></span>
+                                <section class="action-container">
+                                    <section class="action-btn">
+                                        <section>
+                                            <button type="submit" id="edit-task" class="edit-task-btn" data-id="<%= task.id %>" data-name="<%= task.task_name %>" data-date="<%= task.date || '' %>"><i class="fa fa-pen"></i></button>
                                         </section>
-
-                                        <i class="date"><%= task.date || 'No Date' %></i>
-
+                                        <form action="/delete/<%= task.id %>" method="post">
+                                            <button type="submit"><i class="fa fa-trash"></i></button>
+                                        </form>
                                     </section>
-
+                                    <i class="date"><%= task.date || 'No Date' %></i>
                                 </section>
-                                <form action="" class="check-btn">
-                                    <button type="submit"><i class="fa fa-check"></i></button>
-                                </form>
+                            </section>
+                            <section class="check-btn" id="checkTask">
+                                <button type="button" data-id="<%= task.id %>"><i class="fa fa-check"></i></button>
+                            </section>
                         </li>
                     <% } %>
                 <% } else { %>
-                   <p id="empty-task"><%= emptyMessage %></p>
+                    <p id="empty-task"><%= emptyMessage %></p>
                 <% } %>
-            </ul>   
+            </ul>
+            
             <div id="glow-box"></div>   
         </main>
 

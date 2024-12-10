@@ -1,3 +1,4 @@
 /app/node_modules/
 /app/public/css/fontawesome-free-6.6.0-web
 /app/.env
+/app/task

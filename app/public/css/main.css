@@ -95,7 +95,7 @@ main #empty-task {
     font-size: 1.5em;
     font-weight: normal;
     color: var(--font-secondary-color);
-    padding: 3em;
+    padding: 0.4em;
 }
 
 .remove-initial-text {
@@ -389,6 +389,29 @@ li .check-btn button .fa{
     color: var(--font-secondary-color);
     
 }
+
+.completed {
+    text-decoration: line-through;
+    color: rgb(99, 98, 98);
+    opacity: 0.9;
+}
+
+.completed .edit-task-btn {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.completed .check-btn button {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.completed .edit-task-btn, .completed .check-btn button:hover {
+    cursor: not-allowed;
+}
+
 
 /* 404 page style */
 .not-found h1{
