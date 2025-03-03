@@ -98,6 +98,39 @@ main #empty-task {
     padding: 0.4em;
 }
 
+.login_form input, .login_form button{
+    border: none;
+    outline: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.login_form button{
+    cursor: pointer;
+}
+
+.login_form button{
+    background:#2fded0;
+}
+.login_form button:hover{
+    background:#044347;
+    color: #fff;
+}
+
+.register_link{
+    color: #fff;
+    margin-top: 2rem;
+    display: block;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.register_link:hover{
+    text-decoration: underline;
+}
 .remove-initial-text {
     display: none;
 }

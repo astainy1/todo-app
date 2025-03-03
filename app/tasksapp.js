@@ -4,7 +4,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const path = require('path');	
-const handler = require('./lib/handler');
+const router = require('./lib/handler');
+const handler = require('./middleware/error.js');
 // const liveReload = require('livereload');
 const port = process.env.PORT || 3000;
 
@@ -27,18 +28,25 @@ app.use(express.static(path.join(__dirname, 'views')));
 // });
 
 // app.use(connectLiveReload());
+//Index routes - Login 
+// app.get('/', handler.indexGet);
+// app.post('/', handler.indexPost);
 
-//routes
-app.get('/', handler.home);
-app.post('/', handler.process);
+//Index routers - register
+// app.get('/register', handler.registerGet);
+// app.post('/register', handler.registerPost);
+
+
 // delete routes
-app.post('/delete/:id', handler.delete);
+// app.post('/delete/:id', handler.delete);
 //edit routes
-app.get('/edit/:id?', handler.edit);
-app.post('/edit/:id', handler.update);
+// app.get('/edit/:id?', handler.edit);
+// app.post('/edit/:id', handler.update);
 //Completed task 
-app.post('/complete/:id', handler.completedTask);
+// app.post(handler.completedTask);
 
+//User router
+app.use(router);
 
 //Custome 404 response
 app.use(handler.notFound);

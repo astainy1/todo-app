@@ -1,0 +1,32 @@
+<!-- Include partial file -->
+<%- include('./partial/header.ejs') %>
+<section class="main-container">
+    <section>
+
+        <header>
+            <section>
+                <h3>To-Do List App </h3>
+                <p>Schedule your daily activities</p>
+            </section>
+            <!-- <button class="btn" id="add-task-btn">Add Task</button> -->
+        </header>
+
+        <main class="task-main-container">
+            <form method="post" class="login_form" id="login_form">
+                <input type="text" name="username" placeholder="Enter username" required>
+                <button type="submit" class="btn" id="add-task-btn">Enter</button>
+            </form>
+            <!-- <a href="/register" class="register_link">Register?</a> -->
+        </main>
+
+        <footer>
+                <ul class="social-media">
+                    <li><a href="https://github.com/astainy1"><span class="fa fa-github"></span></a></li>
+                    <li><a href="https://www.facebook.com/christian.harris.58555"><span class="fa fa-facebook"></span></a></li>
+                    <li><a href="mailto:astainyharris1@gmail.com"><span class="fa fa-google"></span></a></li>
+                </ul>
+        </footer>
+    </section>
+</section>
+    <!-- Include partial file for footer -->
+<%- include('./partial/footer.ejs') %>

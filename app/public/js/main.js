@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Hidden input field for ID not found.');
         }
 
-        modalForm.action = '/'; // Set action to the create route
+        modalForm.action = '/home'; // Set action to the create route
         submitTaskBtn.value = 'Submit';
     });
 

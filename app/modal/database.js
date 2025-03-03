@@ -10,7 +10,9 @@ const db = new sqlite.Database('./task.db', (err) =>{
 });
 
 db.serialize(() => {
-    db.run(`CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY AUTOINCREMENT, task_name VARCHAR(255) NOT NULL, date INTERGER NOT NULL, completed BOOLEAN DEFAULT 0)`);
+    db.run(`CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCH(50) NOT NULL)`);
+
+    db.run(`CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, task_name VARCHAR(255) NOT NULL, date INTERGER NOT NULL, completed BOOLEAN DEFAULT 0)`);
 });
 
 module.exports = db;
