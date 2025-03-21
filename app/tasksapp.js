@@ -20,31 +20,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
 
-// const liveReloadServer = liveReload.createServer();
-// liveReloadServer.server.once('connection', () => {
-//     setTimeout(() => {
-//         liveReloadServer.refresh('/');
-//     }, 100)
-// });
-
-// app.use(connectLiveReload());
-//Index routes - Login 
-// app.get('/', handler.indexGet);
-// app.post('/', handler.indexPost);
-
-//Index routers - register
-// app.get('/register', handler.registerGet);
-// app.post('/register', handler.registerPost);
-
-
-// delete routes
-// app.post('/delete/:id', handler.delete);
-//edit routes
-// app.get('/edit/:id?', handler.edit);
-// app.post('/edit/:id', handler.update);
-//Completed task 
-// app.post(handler.completedTask);
-
 //User router
 app.use(router);
 

@@ -8,21 +8,12 @@ let userID;
 router.get('/', (req, res, next) => {
 
     return res.render("index", {
-        title: "To-do app",
+        title: "To-do App",
         addedTask: "",
         emptyMessage: "",
         task: '',
       });
 }); 
-
-// exports.indexGet = (req, res) => {
-//   res.render("index", {
-//     title: "To-do app",
-//     addedTask: "",
-//     emptyMessage: "",
-//     task: '',
-//   });
-// };
 
 router.post('/', (req, res) => {
     //Get username from the body content
@@ -94,7 +85,6 @@ router.post('/', (req, res) => {
     }
   });
 
-
 //Home route after login
 router.get('/home', (req, res) => {
     console.log(userID, 'Has successfully logged in to home page.')
@@ -165,7 +155,9 @@ router.post('/home', (req, res) => {
     // console.log('Year: ' + fullYear);
   
     const { id, task } = req.body;
-    console.log(task);
+    const trimedTask = task.trim();
+    
+    console.log(trimedTask);
     
     const fullActualDate = `${months[fullMonth]} ${fullDay}, ${fullYear}`;
   
@@ -194,29 +186,34 @@ router.post('/home', (req, res) => {
           return res.redirect(303, "/home");
         } 
         else {
+           if(!trimedTask){
+            console.log('Empty task is not allowed');
+            res.redirect('/home');
+            return;
+           }else{
             console.log(row)
 
-        //   //Insert data into table
-          const newTask = `INSERT INTO tasks(user_id, task_name, date) VALUES(?,?,?)`;
-          // Run the database by inserting values into various columns
-          database.run(newTask, [userID, task, fullActualDate], (err, row) => {
-            if (err) {
-              console.error("Error inserting data into database: ", err.message);
-              return res
-                .status(500)
-                .render("500", {
-                  title: "Server error",
-                  message: "Database error. Please try again later.",
-                });
-            }
-            return res.redirect(303, "/home");
-          });
+            //   //Insert data into table
+              const newTask = `INSERT INTO tasks(user_id, task_name, date) VALUES(?,?,?)`;
+              // Run the database by inserting values into various columns
+              database.run(newTask, [userID, trimedTask, fullActualDate], (err, row) => {
+                if (err) {
+                  console.error("Error inserting data into database: ", err.message);
+                  return res
+                    .status(500)
+                    .render("500", {
+                      title: "Server error",
+                      message: "Database error. Please try again later.",
+                    });
+                }
+                return res.redirect(303, "/home");
+              });
+           }
         }
       });
     }
   }
   )
-
 
 //Delete route
 router.post('/delete/:id', (req, res, next) => {
